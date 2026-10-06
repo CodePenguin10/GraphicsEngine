@@ -32,16 +32,13 @@ int main()
         Engine::Instance().Update();
         float dt = Engine::Instance().GetTime().GetDeltaTime();
 
-        // RENDER
-        Engine::Instance().GetRenderer().SetColor(0.0f, 0.0f, 0.0f);
-        Engine::Instance().GetRenderer().Clear();
+        // RENDER;
+        Engine::Instance().GetRenderer().BeginFrame();
 
         Engine::Instance().GetPS().Draw(Engine::Instance().GetRenderer());
 
-        Engine::Instance().GetRenderer().Present();
+        Engine::Instance().GetRenderer().EndFrame();
     }
-
-    // reset destroys the object (need to delete game before engine shutdown)
 
     // SHUTDOWN
     Engine::Instance().Shutdown();    
