@@ -10,7 +10,8 @@ using namespace nu;
 
 struct Vertex
 {
-    float x, y, z;
+    float x, y, z; // Position
+	float r, g, b, a; // Color
 };
 
 std::vector<Vertex> vertices =
@@ -39,6 +40,10 @@ int main()
         0,
         SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3,
         offsetof(Vertex, x));
+	pipeline->AddVertexAttribute(
+        1,
+        SDL_GPU_VERTEXELEMENTFORMAT_FLOAT4,
+		offsetof(Vertex, r));
 
     pipeline->Create(*vshader.get(), *fshader.get(),
         Engine::Instance().GetRenderer().GetGPUDevice(),
