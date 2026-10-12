@@ -5,19 +5,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Assets\Shaders">
-      <UniqueIdentifier>{0bbf28e6-4458-4903-a8b6-ccd6442e6aae}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\Shaders\color.frag.hlsl">
-      <Filter>Assets\Shaders</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\Shaders\position.vert.hlsl">
-      <Filter>Assets\Shaders</Filter>
-    </CustomBuild>
   </ItemGroup>
 </Project>
