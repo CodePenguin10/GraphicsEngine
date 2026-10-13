@@ -3,6 +3,7 @@
 
 namespace nu
 {
+
 	VertexBuffer::~VertexBuffer()
 	{
 		// if both the gpu buffer and the gpu device are valid (not null),
