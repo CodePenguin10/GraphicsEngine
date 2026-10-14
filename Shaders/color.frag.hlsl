@@ -16,7 +16,7 @@ struct Output
 Output main(Input input)
 {
 	Output output;
-    output.Color = color; 
+    output.Color = input.color; 
 
 	return output;
 }
