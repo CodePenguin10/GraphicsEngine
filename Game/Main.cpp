@@ -142,7 +142,7 @@ int main()
         //0 0 1 z
         //0 0 0 1 
         auto mxt = glm::translate(glm::vec3(0.0f, 0.0f, 0.0f));
-        auto mxr = glm::eulerAngleXYZ(0.0f, 0.0f, 0.0f);
+        auto mxr = glm::eulerAngleXYZ(0.0f, 0.0f, 0.0f + (time * 2));
         //x 0 0 0
         //0 y 0 0
         //0 0 z 0
