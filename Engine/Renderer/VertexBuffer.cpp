@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 #include "Renderer.h"
 
 namespace nu
@@ -146,5 +147,10 @@ namespace nu
 
 		// vertex buffer created and uploaded successfully
 		return true;
+	}
+
+	bool IndexBuffer::Create(std::vector<uint32_t> indices, const Renderer* renderer)
+	{
+		return Create(indices, renderer);
 	}
 }
