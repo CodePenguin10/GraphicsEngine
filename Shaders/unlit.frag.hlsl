@@ -10,13 +10,13 @@ struct Input
 
 struct Output
 {
-	float2 texcoord : SV_Target0;
+	float2 color : SV_Target0;
 };
 
 Output main(Input input)
 {
 	Output output;
-    output.texcoord = input.texcoord; 
+    output.color = color; 
 
 	return output;
 }
