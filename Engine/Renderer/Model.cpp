@@ -19,6 +19,7 @@ namespace nu
 			return false;
 		}
 		// todo: start processing the scene from the root node with ProcessNode(node, scene, renderer)
+		ProcessNode(scene->mRootNode, scene, renderer);
 			// the root node is scene->mRootNode
 			return true;
 	}
@@ -40,16 +41,18 @@ namespace nu
 			{
 				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 				// todo: process the mesh with ProcessMesh(mesh, scene, renderer)
+				ProcessMesh(mesh, scene, renderer);
 			}
 		// process the current node children
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
 			// todo: process the child node with ProcessNode(child, scene, renderer)
+			ProcessNode(node->mChildren[i], scene, renderer);
 			// the children are stored in node->mChildren, this is recursive so every node in the tree gets processed
 		}
 	}
-	void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, const Renderer&
-		renderer)
+
+	void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, const Renderer& renderer)
 	{
 		// get model vertex attributes
 		std::vector<Vertex> vertices;
@@ -78,6 +81,7 @@ namespace nu
 			for (unsigned int j = 0; j < face.mNumIndices; j++)
 			{
 				// todo: add the face index face.mIndices[j] to indices
+				indices.push_back(face.mIndices[j]);
 			}
 		}
 		// create the vertex buffer (uploads to the gpu)
@@ -96,6 +100,7 @@ namespace nu
 		return;
 		}
 		// todo: add newMesh to m_meshes
+		m_meshes.push_back(newMesh);
 		// Mesh holds unique_ptrs so it can't be copied, use std::move(newMesh)
 	}
 }
