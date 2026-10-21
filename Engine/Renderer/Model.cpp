@@ -32,8 +32,7 @@ namespace nu
 				// todo: draw the mesh with renderer.DrawIndex(indexBuffer)
 		}
 	}
-	void Model::ProcessNode(aiNode* node, const aiScene* scene, const Renderer&
-		renderer)
+	void Model::ProcessNode(aiNode* node, const aiScene* scene, const Renderer& renderer)
 	{
 		// process the current node meshes
 		// a node only stores mesh indices, the actual meshes are stored in scene->mMeshes
@@ -86,8 +85,7 @@ namespace nu
 		newMesh.vertexBuffer = std::make_unique<VertexBuffer>();
 		if (!newMesh.vertexBuffer->Create(vertices, renderer))
 		{
-			std::cerr << "Could not create vertex buffer for mesh " << mesh -
-			> mName.C_Str() << std::endl;
+			std::cerr << "Could not create vertex buffer for mesh " << mesh->mName.C_Str() << std::endl;
 			return;
 		}
 		// create the index buffer (uploads to the gpu)
