@@ -18,7 +18,7 @@ namespace nu
 				importer.GetErrorString() << std::endl;
 			return false;
 		}
-		// todo: start processing the scene from the root node with ProcessNode(node, scene, renderer)
+
 		ProcessNode(scene->mRootNode, scene, renderer);
 			// the root node is scene->mRootNode
 			return true;
@@ -27,10 +27,13 @@ namespace nu
 	{
 		for (const auto& mesh : m_meshes)
 		{
-			// todo: set the mesh vertex buffer on the renderer with renderer.SetVertexBuffer(vertexBuffer)
+			
+			renderer.SetVertexBuffer(*mesh.vertexBuffer);
 				// the buffers are stored as unique_ptr, so dereference them with *
-				// todo: set the mesh index buffer on the renderer with renderer.SetIndexBuffer(indexBuffer)
-				// todo: draw the mesh with renderer.DrawIndex(indexBuffer)
+				
+			renderer.SetIndexBuffer(*mesh.indexBuffer);
+				
+			renderer.DrawIndex(*mesh.indexBuffer);
 		}
 	}
 	void Model::ProcessNode(aiNode* node, const aiScene* scene, const Renderer& renderer)
@@ -40,13 +43,12 @@ namespace nu
 			for (unsigned int i = 0; i < node->mNumMeshes; i++)
 			{
 				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-				// todo: process the mesh with ProcessMesh(mesh, scene, renderer)
+				
 				ProcessMesh(mesh, scene, renderer);
 			}
 		// process the current node children
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
-			// todo: process the child node with ProcessNode(child, scene, renderer)
 			ProcessNode(node->mChildren[i], scene, renderer);
 			// the children are stored in node->mChildren, this is recursive so every node in the tree gets processed
 		}
@@ -60,14 +62,22 @@ namespace nu
 		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 		{
 			Vertex vertex;
-			// todo: set vertex.position from mesh->mVertices[i] (x, y, z)
+
+			vertex.position = glm::vec3{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z };
 			// a mesh always has positions, so no null check is needed
 			// texcoords are optional, use (0, 0) if the mesh doesn't have them
-				vertex.texcoord = (mesh->mTextureCoords[0]) ? glm::vec2{ mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y }
+		    vertex.texcoord = (mesh->mTextureCoords[0])
+			? glm::vec2{ mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y }
 			: glm::vec2{ 0, 0 };
-			// todo: set vertex.normal from mesh->mNormals[i] (x, y, z)
+
+			vertex.normal = (mesh->mNormals)
+			? glm::vec3{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z }
+			: glm::vec3{ 0, 0, 0 };
 			// normals are optional, use (0, 0, 0) if mesh->mNormals is null (see texcoord above)
-				// todo: set vertex.tangent from mesh->mTangents[i] (x, y, z)
+		
+			vertex.tangent = (mesh->mTangents)
+			? glm::vec3{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z }
+			: glm::vec3{ 0, 0, 0 };
 				// tangents are optional, use (0, 0, 0) if mesh->mTangents is null(see texcoord above)
 				vertices.push_back(vertex);
 		}
@@ -80,7 +90,6 @@ namespace nu
 			const aiFace& face = mesh->mFaces[i];
 			for (unsigned int j = 0; j < face.mNumIndices; j++)
 			{
-				// todo: add the face index face.mIndices[j] to indices
 				indices.push_back(face.mIndices[j]);
 			}
 		}
@@ -99,7 +108,7 @@ namespace nu
 			std::cerr << "Could not create index buffer for mesh " << mesh->mName.C_Str() << std::endl;
 		return;
 		}
-		// todo: add newMesh to m_meshes
+
 		m_meshes.push_back(newMesh);
 		// Mesh holds unique_ptrs so it can't be copied, use std::move(newMesh)
 	}
