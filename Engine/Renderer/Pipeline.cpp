@@ -42,12 +42,12 @@ namespace nu
 			},
 
 			// how vertices are assembled into shapes, every 3 vertices form one triangle
-			.primitive_type = SDL_GPU_PRIMITIVETYPE_TRIANGLESTRIP, // todo: SDL_GPU_PRIMITIVETYPE_...
+			.primitive_type = SDL_GPU_PRIMITIVETYPE_TRIANGLELIST, // todo: SDL_GPU_PRIMITIVETYPE_...
 
 			// controls how triangles are turned into pixels
 			.rasterizer_state = SDL_GPURasterizerState{
 				.fill_mode = SDL_GPU_FILLMODE_FILL, // todo: fill the triangles solid (SDL_GPU_FILLMODE_...)
-				.cull_mode = SDL_GPU_CULLMODE_NONE, // todo: skip drawing back-facing triangles (SDL_GPU_CULLMODE_...)  || MAYBE MAKE THIS _NONE INSTEAD OF _BACK IF PROBLEMS OCCUR
+				.cull_mode = SDL_GPU_CULLMODE_BACK, // todo: skip drawing back-facing triangles (SDL_GPU_CULLMODE_...)  || MAYBE MAKE THIS _NONE INSTEAD OF _BACK IF PROBLEMS OCCUR
 				.front_face = SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE // todo: front faces have counter clockwise winding (SDL_GPU_FRONTFACE_...)
 			},
 
