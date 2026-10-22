@@ -20,7 +20,6 @@ namespace nu
 		}
 
 		ProcessNode(scene->mRootNode, scene, renderer);
-			// the root node is scene->mRootNode
 			return true;
 	}
 	void Model::Draw(Renderer& renderer) const
@@ -29,7 +28,6 @@ namespace nu
 		{
 			
 			renderer.SetVertexBuffer(*mesh.vertexBuffer);
-				// the buffers are stored as unique_ptr, so dereference them with *
 				
 			renderer.SetIndexBuffer(*mesh.indexBuffer);
 				
@@ -38,25 +36,21 @@ namespace nu
 	}
 	void Model::ProcessNode(aiNode* node, const aiScene* scene, const Renderer& renderer)
 	{
-		// process the current node meshes
-		// a node only stores mesh indices, the actual meshes are stored in scene->mMeshes
 			for (unsigned int i = 0; i < node->mNumMeshes; i++)
 			{
 				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 				
 				ProcessMesh(mesh, scene, renderer);
 			}
-		// process the current node children
+
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
 			ProcessNode(node->mChildren[i], scene, renderer);
-			// the children are stored in node->mChildren, this is recursive so every node in the tree gets processed
 		}
 	}
 
 	void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, const Renderer& renderer)
 	{
-		// get model vertex attributes
 		std::vector<Vertex> vertices;
 		vertices.reserve(mesh->mNumVertices);
 		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -64,8 +58,7 @@ namespace nu
 			Vertex vertex;
 
 			vertex.position = glm::vec3{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z };
-			// a mesh always has positions, so no null check is needed
-			// texcoords are optional, use (0, 0) if the mesh doesn't have them
+
 		    vertex.texcoord = (mesh->mTextureCoords[0])
 			? glm::vec2{ mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y }
 			: glm::vec2{ 0, 0 };
@@ -73,16 +66,14 @@ namespace nu
 			vertex.normal = (mesh->mNormals)
 			? glm::vec3{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z }
 			: glm::vec3{ 0, 0, 0 };
-			// normals are optional, use (0, 0, 0) if mesh->mNormals is null (see texcoord above)
 		
 			vertex.tangent = (mesh->mTangents)
 			? glm::vec3{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z }
 			: glm::vec3{ 0, 0, 0 };
-				// tangents are optional, use (0, 0, 0) if mesh->mTangents is null(see texcoord above)
+
 				vertices.push_back(vertex);
 		}
-		// get model indices
-		// each face is a triangle (aiProcess_Triangulate), each face stores the indices of its vertices
+
 		std::vector<uint32_t> indices;
 		indices.reserve(mesh->mNumFaces * 3);
 		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
@@ -93,7 +84,7 @@ namespace nu
 				indices.push_back(face.mIndices[j]);
 			}
 		}
-		// create the vertex buffer (uploads to the gpu)
+
 		Mesh newMesh;
 		newMesh.vertexBuffer = std::make_unique<VertexBuffer>();
 		if (!newMesh.vertexBuffer->Create(vertices, renderer))
@@ -101,7 +92,7 @@ namespace nu
 			std::cerr << "Could not create vertex buffer for mesh " << mesh->mName.C_Str() << std::endl;
 			return;
 		}
-		// create the index buffer (uploads to the gpu)
+
 		newMesh.indexBuffer = std::make_unique<IndexBuffer>();
 		if (!newMesh.indexBuffer->Create(indices, renderer))
 		{
@@ -110,6 +101,5 @@ namespace nu
 		}
 
 		m_meshes.push_back(newMesh);
-		// Mesh holds unique_ptrs so it can't be copied, use std::move(newMesh)
 	}
 }
