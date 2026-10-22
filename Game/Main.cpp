@@ -16,36 +16,6 @@
 
 using namespace nu;
 
-namespace nu
-{
-    struct Color4
-    {
-        float r, g, b, a;
-    };
-}
-
-struct vertexUniform
-{
-    glm::mat4 mvp;
-};
-
-struct Vertex
-{
-    Vector3 position;
-	Color4 color;
-    Vector2 uv;
-};
-
-std::vector<Vertex> vertices =
-{
-    Vertex{ Vector3( -0.5f, -0.5f, 0.0f), Color4{0.0f, 1.0f, 1.0f, 1.0f}}, // Bottom-Left
-    Vertex{ Vector3(  0.5f, -0.5f, 0.0f), Color4{1.0f, 1.0f, 0.0f, 1.0f}}, // Bottom-Right
-    Vertex{ Vector3(  0.5f,  0.5f, 0.0f), Color4{1.0f, 0.0f, 1.0f, 1.0f}}, // Top-Right
-    Vertex{ Vector3( -0.5f,  0.5f, 0.0f), Color4{0.0f, 0.0f, 1.0f, 0.0f}}, // Top-Left
-};
-
-std::vector<uint32_t> indices = { 0, 1, 2, 2, 3, 0 };
-
 int main()
 {
     SetWorkingDirectory("Assets");
@@ -53,17 +23,11 @@ int main()
     // INITIALIZATION
     Engine::Instance().Initialize();
 
-    auto vb = std::make_shared<VertexBuffer>();
-    vb->Create<Vertex>(vertices, Engine::Instance().GetRenderer());
-
-    auto ib = std::make_shared<IndexBuffer>();
-    ib->Create(static_cast<uint32_t>(indices.size()), indices.data(), Engine::Instance().GetRenderer());
-
     auto model = Resources().Get<Model>("models/spot.obj", Engine::Instance().GetRenderer());
     auto texture = Resources().Get<Texture>("textures/spot_diffuse.png", Engine::Instance().GetRenderer());
 
-    auto vshader = Resources().Get<nu::Shader>("shaders/unlit.vert", Engine::Instance().GetRenderer(), 1);
-    auto fshader = Resources().Get<nu::Shader>("shaders/unlit.frag", Engine::Instance().GetRenderer(), 1, 1);
+    auto vshader = Resources().Get<nu::Shader>("shaders/lit.vert", Engine::Instance().GetRenderer(), 1);
+    auto fshader = Resources().Get<nu::Shader>("shaders/lit.frag", Engine::Instance().GetRenderer(), 1, 1);
 
     auto pipeline = std::make_shared<Pipeline>();
 
@@ -77,8 +41,13 @@ int main()
         Engine::Instance().GetRenderer().GetGPUDevice(),
         Engine::Instance().GetRenderer().GetWindow());
 
-    float scale = 0.5f;
-	Color4 color{ 0.0f, 0.0f, 0.0f, 1.0f };
+	glm::vec4 color{ 1.0f, 1.0f, 1.0f, 1.0f };
+
+    struct vertexUniform
+    {
+        glm::mat4 mvp;
+    };
+
     vertexUniform uniform;
     glm::vec3 cameraPosition{ 0, 0, 5 };
 
@@ -107,8 +76,7 @@ int main()
         float dt = Engine::Instance().GetTime().GetDeltaTime();
         float time = Engine::Instance().GetTime().GetTime();
 
-		scale = sin(time);
-		color.r = 0.5f * 0.5f + 0.5f;
+		//color.b = sin(time * 10.0f) * 0.5f + 0.5f;
 
         glm::vec3 direction{0};
 		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_A)) direction.x -= 1.0f;
