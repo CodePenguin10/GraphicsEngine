@@ -102,7 +102,7 @@ namespace nu
 			return;
 		}
 		// create the index buffer (uploads to the gpu)
-		newMesh.indexBuffer = std::make_unique<IndexBuffer>();
+		newMesh.vertexBuffer = std::make_unique<IndexBuffer>();
 		if (!newMesh.indexBuffer->Create(indices, renderer))
 		{
 			std::cerr << "Could not create index buffer for mesh " << mesh->mName.C_Str() << std::endl;

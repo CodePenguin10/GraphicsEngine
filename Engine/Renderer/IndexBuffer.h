@@ -10,7 +10,7 @@ namespace nu
 		~IndexBuffer();
 
 		bool Create(uint32_t indexCount, const uint32_t* data, const class Renderer& renderer);
-		bool Create(std::vector<uint32_t> indices, const class Renderer* renderer);
+
 
 		
 		uint32_t GetIndexCount() const { return m_indexCount; }

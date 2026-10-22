@@ -10,6 +10,7 @@ namespace nu
 		~VertexBuffer();
 
 		bool Create(uint32_t vertexCount, uint32_t vertexSize, const uint8_t* data, const class Renderer& renderer);
+		bool Create(std::vector<uint32_t> indices, const class Renderer* renderer);
 
 		template<typename T>
 		bool Create(const std::vector<T>& vertices, const class Renderer& renderer);

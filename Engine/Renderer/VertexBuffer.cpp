@@ -149,4 +149,9 @@ namespace nu
 		return true;
 	}
 
+	bool VertexBuffer::Create(std::vector<uint32_t> indices, const Renderer* renderer)
+	{
+		return Create(indices, renderer);
+	}
+
 }
