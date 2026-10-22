@@ -34,8 +34,10 @@ namespace nu
         }
 
         //create GPU device
+        SDL_SetHint(SDL_HINT_GPU_DRIVER, "vulkan");
         SDL_GPUShaderFormat formats = SDL_GPU_SHADERFORMAT_SPIRV | SDL_GPU_SHADERFORMAT_DXIL;
         m_GPUDevice = SDL_CreateGPUDevice(formats, true, NULL);
+
         if (!m_GPUDevice)
         {
             std::cerr << "Failed to create GPU device: " << SDL_GetError() << std::endl;
