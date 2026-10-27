@@ -8,6 +8,7 @@ struct Material
 {
     float2 tiling;
     float2 offset;
+    float3 shininess;
 };
 
 struct Light

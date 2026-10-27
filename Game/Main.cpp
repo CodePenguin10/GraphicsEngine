@@ -74,7 +74,7 @@ int main()
     };
 
     LightUniform lightUniform{
-        .position {10, 10, 10},
+        .position {5, -7, 5},
         .type { LightType::Point },
         .direction{ 0, -1, 0},
         .color{1, 1, 1},
@@ -86,12 +86,14 @@ int main()
     {
         glm::vec2 tiling;
         glm::vec2 offset;
+        glm::vec3 shininess;
     };
 
     MaterialUniform  materialUniform
     {
         .tiling{ 1.0f, 1.0f},
-        .offset{ 0.0f, 0.0f}
+        .offset{ 0.0f, 0.0f},
+        .shininess{ 0.7f }
     };
 
     vertexUniform.cameraPosition = glm::vec3{ 0, 0, 3 };

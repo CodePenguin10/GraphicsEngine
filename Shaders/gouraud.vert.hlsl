@@ -11,7 +11,7 @@ cbuffer lightUniforms : register(b1, space1)
     Light light;
 };
 
-cbuffer MaterualUniforms : register(b2, space1)
+cbuffer MaterialUniforms : register(b2, space1)
 {
     Material material;
 };
@@ -38,11 +38,22 @@ Output main(Input input)
     output.position = mul(mvp, float4(input.position, 1.0f));
     
     float3 worldPosition = mul(model, float4(input.position, 1.0f)).xyz;
-    
+    // radiance is the light arriving from the light source (color scaled by intensity)
+    float3 radiance = light.color * light.intensity;
+
     // DIFFUSE
-    float3 N = normalize(mul((float3x3)model, input.normal));
+    float3 N = normalize(mul((float3x3) model, input.normal));
+    float3 L = normalize(worldPosition - light.position);
     
-    float3 L;
+    float NdotL = saturate(dot(N, L));
+    
+    if (NdotL > 0)
+    {
+        float3 R = reflect( N, L);
+
+    }
+    
+        float3 diffuse = radiance * NdotL;
     if (light.type == LIGHT_DIRECTIONAL)
     {
         L = normalize(-light.direction);
@@ -52,9 +63,7 @@ Output main(Input input)
         L = normalize(light.position - worldPosition);
     }
     
-    float NdotL = saturate(dot(N, L));
-    
-    float3 diffuse = light.color * light.intensity * NdotL;
+    diffuse = radiance * NdotL;
     output.diffuse = light.ambient + diffuse;
     
     // SPECULAR
@@ -62,6 +71,9 @@ Output main(Input input)
     if (NdotL > 0)
     {
         float3 R = reflect(-L, N);
+        float3 V = normalize(input.position - worldPosition);
+        float RdotV = saturate(dot(R, V));
+        output.specular = pow(RdotV, material.shininess) * radiance;
     }
     
     return output;
