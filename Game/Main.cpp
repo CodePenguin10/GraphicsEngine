@@ -49,8 +49,6 @@ int main()
         Engine::Instance().GetRenderer().GetWindow());
 
     // UNIFORMS
-	glm::vec4 tint{ 1, 1, 1, 1 };
-
     struct VertexUniform
     {
         glm::mat4 mvp;
@@ -58,7 +56,6 @@ int main()
         glm::vec3 cameraPosition;
         float padding1;
     };
-
     VertexUniform vertexUniform;
 
     struct LightUniform
@@ -66,20 +63,24 @@ int main()
         glm::vec3 position;
         LightType type;
         glm::vec3 direction;
-        float padding1;
+        float range;
         glm::vec3 color;
         float intensity;
         glm::vec3 ambient;
-        float padding2;
+        float innerCutoff;
+        float outerCutoff;
+        glm::vec3 padding;
     };
 
     LightUniform lightUniform{
         .position {5, -7, 5},
         .type { LightType::Point },
         .direction{ 0, -1, 0},
+        .innerCutoff{ 0.3f},
         .color{1, 1, 1},
         .intensity{ 1 },
-        .ambient{ 0.1f }
+        .ambient{ 0.1f },
+        .outerCutoff{ 1.6f}
     };
 
     struct MaterialUniform
@@ -93,7 +94,7 @@ int main()
     {
         .tiling{ 1.0f, 1.0f},
         .offset{ 0.0f, 0.0f},
-        .shininess{ 0.7f }
+        .shininess{ 1.f }
     };
 
     vertexUniform.cameraPosition = glm::vec3{ 0, 0, 3 };
@@ -137,15 +138,15 @@ int main()
         if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_2)) lightUniform.type = LightType::Point;
 
         // TRANSFORM MATRIX
-        //transform.rotation.x = time * 90;
-        transform.rotation.x = 180;
+        transform.rotation.x = time * 90;
+        //transform.rotation.x = 180;
 
         // VIEW MATRIX
         auto view = glm::lookAtRH(vertexUniform.cameraPosition, vertexUniform.cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
 
         // PROJECION MATRIX
 		float aspectRatio = Engine::Instance().GetRenderer().GetWidth() / (float)Engine::Instance().GetRenderer().GetHeight();
-        auto projection = glm::perspective(glm::radians(70.0f), aspectRatio, 0.01f, 20.0f);
+        auto projection = glm::perspective(glm::radians(70.0f), aspectRatio, 0.01f, 200.0f);
 
         // MVP
         vertexUniform.model = transform.GetMatrix();
@@ -155,9 +156,11 @@ int main()
         Engine::Instance().GetRenderer().BeginFrame();
 
         Engine::Instance().GetRenderer().SetPipeline(*pipeline);
+
         Engine::Instance().GetRenderer().SetVertexUniform(0, &vertexUniform, sizeof(vertexUniform));
         Engine::Instance().GetRenderer().SetVertexUniform(1, &lightUniform, sizeof(lightUniform));
         Engine::Instance().GetRenderer().SetVertexUniform(2, &materialUniform, sizeof(materialUniform));
+
         Engine::Instance().GetRenderer().SetFragmentUniform(0, &tint, sizeof(tint));
         Engine::Instance().GetRenderer().SetFragmentTexture(0, *texture);
 
