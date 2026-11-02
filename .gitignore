@@ -362,10 +362,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-#----------------------------------------------------------------
+# ------------------------------------------------------------------
 # project overrides - keep required assets and third-party binaries
-# (these)
-#
+# ------------------------------------------------------------------
 
 # 3d model files (.obj) - the rule above is for compiler object files
 !Build/Assets/**/*.obj
