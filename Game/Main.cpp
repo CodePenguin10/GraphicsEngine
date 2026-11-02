@@ -26,6 +26,7 @@ enum class LightType : uint32_t
     Spot
 };
 
+
 int main()
 {
     SetWorkingDirectory("Assets");
