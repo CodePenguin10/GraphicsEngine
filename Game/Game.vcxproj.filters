@@ -9,4 +9,9 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Build\Assets\Scenes\scene.json">
+      <Filter>Assets</Filter>
+    </None>
+  </ItemGroup>
 </Project>

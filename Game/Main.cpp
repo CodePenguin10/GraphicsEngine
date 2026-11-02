@@ -7,6 +7,7 @@
 #include "Renderer/Pipeline.h"
 #include "Renderer/Model.h"
 #include "Resources/ResourceManager.h"
+#include "Framework/Scene.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
@@ -33,6 +34,9 @@ int main()
 
     // INITIALIZATION
     Engine::Instance().Initialize();
+
+    Scene scene;
+    scene.Load("scenes/scene.json");
 
     auto model = Resources().Get<Model>("models/ogre.obj", Engine::Instance().GetRenderer());
     auto texture = Resources().Get<Texture>("textures/ogre_diffuse.bmp", Engine::Instance().GetRenderer());
