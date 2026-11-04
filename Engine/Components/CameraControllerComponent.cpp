@@ -39,8 +39,8 @@ namespace nu
 		//m_owner->GetTransform().SetRotationQuat(q);
 
 		glm::vec3 direction{ 0 };
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_A)) direction -= m_owner->GetTransform().Right();
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_D)) direction += m_owner->GetTransform().Right();
+		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_A)) direction += m_owner->GetTransform().Right();
+		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_D)) direction -= m_owner->GetTransform().Right();
 		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_E)) direction += m_owner->GetTransform().Up();
 		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_Q)) direction -= m_owner->GetTransform().Up();
 		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_W)) direction += m_owner->GetTransform().Forward();

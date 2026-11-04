@@ -119,7 +119,7 @@ int main()
     };
 
     Light light3{
-    .position {-10, 0, 10},
+    .position {-10, -10, 10},
     .type { LightType::Point },
     .direction{ 0, -1, 0},
     .range{ 400 },
@@ -133,7 +133,7 @@ int main()
     lightUniform.lights[0] = light1;
     lightUniform.lights[1] = light2;
 	lightUniform.lights[2] = light3;
-	lightUniform.numLights = 2;
+	lightUniform.numLights = 3;
 	lightUniform.ambient = glm::vec3{ 0.2f };
 
     struct MaterialUniform
