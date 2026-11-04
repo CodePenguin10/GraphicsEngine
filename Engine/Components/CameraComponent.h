@@ -11,9 +11,13 @@ namespace nu
 		CLASS_PROTOTYPE(CameraComponent)
 
 		void Update(float dt) override;
+		void Start() override;
 		void Draw(const Renderer& renderer) override;
 
 		void Read(const json::value_t& value) override;
+
+		const glm::mat4x4& GetView() const { return m_view; }
+		const glm::mat4x4& GetProjection() const { return m_projection; }
 
 	private:
 		glm::mat4x4 m_view;
@@ -22,5 +26,6 @@ namespace nu
 		float m_fov{ 70.0f };
 		float m_nearPlane{ 0.001f };
 		float m_farPlane{ 300.0f };
+		float m_aspectRatio{ 16.0f / 9.0f };
 	};
 }

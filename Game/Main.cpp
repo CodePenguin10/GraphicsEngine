@@ -9,6 +9,8 @@
 #include "Resources/ResourceManager.h"
 #include "Framework/Scene.h"
 
+#include "Components/CameraComponent.h"
+
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -97,7 +99,7 @@ int main()
         .type { LightType::Point },
         .direction{ 0, -1, 0},
         .range{ 400 },
-        .color{1, 1, 1},
+        .color{1, 0, 0},
         .intensity{ 1 },
         .ambient{ 0.1f },
         .innerCutoff{ 0.3f},
@@ -116,8 +118,21 @@ int main()
     .outerCutoff{ 1.6f}
     };
 
+    Light light3{
+    .position {-10, 0, 10},
+    .type { LightType::Point },
+    .direction{ 0, -1, 0},
+    .range{ 400 },
+    .color{0, 1, 0},
+    .intensity{ 1 },
+    .ambient{ 0.1f },
+    .innerCutoff{ 0.3f},
+    .outerCutoff{ 1.6f}
+    };
+
     lightUniform.lights[0] = light1;
     lightUniform.lights[1] = light2;
+	lightUniform.lights[2] = light3;
 	lightUniform.numLights = 2;
 	lightUniform.ambient = glm::vec3{ 0.2f };
 
@@ -139,7 +154,6 @@ int main()
         .shininess{ 128.f }
     };
 
-    vertexUniform.cameraPosition = glm::vec3{ 0, 0, 15 };
 
     Transform transform;
 
@@ -166,46 +180,32 @@ int main()
         float dt = Engine::Instance().GetTime().GetDeltaTime();
         float time = Engine::Instance().GetTime().GetTime();
 
-        glm::vec3 direction{0};
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_A)) direction.x -= 1.0f;
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_D)) direction.x += 1.0f;
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_Q)) direction.y -= 1.0f;
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_E)) direction.y += 1.0f;
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_W)) direction.z -= 1.0f;
-		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_S)) direction.z += 1.0f;
+        // SCENE
+        scene.Update(dt);       
 
-        vertexUniform.cameraPosition += direction * 5.0f * dt;
+        //lightUniform.lights[0].position = glm::eulerAngleY(time) * glm::vec4{ 0, 0, 10, 1 };
+        //lightUniform.lights[1].position = glm::eulerAngleX(time * 0.5f) * glm::vec4{ 0, 0, 10, 1 };
 
-        lightUniform.lights[0].position = glm::eulerAngleY(time) * glm::vec4{ 0, 0, 10, 1 };
-        lightUniform.lights[1].position = glm::eulerAngleX(time * 0.5f) * glm::vec4{ 0, 0, 10, 1 };
-
-
-
-        //if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_1)) light.type = LightType::Directional;
-        //if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_2)) light.type = LightType::Point;
-        //if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_3))
-        //{
-        //    light.type = LightType::Spot;
-        //    light.position = glm::vec3{ 0, 10, 0 };
-        //    light.innerCutoff = glm::cos(glm::radians(1.0f));
-        //    light.outerCutoff = glm::cos(glm::radians(100.0f));
-        //}
+        // CAMERA
+		auto camera = scene.GetActorByName("Camera");
+		auto cameraComponent = camera->GetComponent<CameraComponent>();
+		vertexUniform.cameraPosition = camera->GetTransform().position;
 
         // TRANSFORM MATRIX
         //transform.rotation.x = time * 90;
         //transform.rotation.x = 180;
-		transform.scale = glm::vec3{ 10, 10, 10 };
+		transform.scale = glm::vec3{ 5, 5, 5 };
 
         // VIEW MATRIX
-        auto view = glm::lookAtRH(vertexUniform.cameraPosition, vertexUniform.cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
+        //auto view = glm::lookAtRH(vertexUniform.cameraPosition, vertexUniform.cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
 
         // PROJECION MATRIX
-		float aspectRatio = Engine::Instance().GetRenderer().GetWidth() / (float)Engine::Instance().GetRenderer().GetHeight();
-        auto projection = glm::perspective(glm::radians(70.0f), aspectRatio, 0.01f, 300.0f);
-
+		//float aspectRatio = Engine::Instance().GetRenderer().GetWidth() / (float)Engine::Instance().GetRenderer().GetHeight();
+        //auto projection = glm::perspective(glm::radians(70.0f), aspectRatio, 0.01f, 300.0f);
+     
         // MVP
         vertexUniform.model = transform.GetMatrix();
-        vertexUniform.mvp = projection * view * vertexUniform.model;
+        vertexUniform.mvp = cameraComponent->GetProjection() * cameraComponent->GetView() * vertexUniform.model;
 
         // RENDER
         Engine::Instance().GetRenderer().BeginFrame();
