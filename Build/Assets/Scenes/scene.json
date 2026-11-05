@@ -7,7 +7,7 @@
       "active": true,
       "transform": {
         "position": [ 0, 0, 5 ],
-        "rotation": [ 180, 0, 0 ],
+        "rotation": [ 0, 0, 0 ],
         "scale": [ 1, 1, 1 ]
       },
       "components": [
@@ -19,7 +19,8 @@
         },
         {
           "type": "CameraControllerComponent",
-          "speed": 5
+          "speed": 10,
+          "sensitivity": 0.2
         }
       ]
     }

@@ -1,24 +1,27 @@
 #include "Lighting.hlsli"
+#include "uniforms.hlsli"
 
 Texture2D<float4> u_texture : register(t0, space2);
 SamplerState u_sampler : register(s0, space2);
 
-cbuffer VertexUniforms : register(b0, space3)
+cbuffer ObjectUniforms : register(OBJECT_SLOT, FRAGMENT_UNIFORM_SPACE)
 {
-    float4x4 mvp;
-    float4x4 model;
-    float3 cameraPosition;
-    float padding1;
+    Object object;
 };
 
-cbuffer lightUniforms : register(b1, space3)
+cbuffer FrameUniforms : register(FRAME_SLOT, FRAGMENT_UNIFORM_SPACE)
+{
+    Frame frame;
+}
+
+cbuffer lightUniforms : register(LIGHT_SLOT, FRAGMENT_UNIFORM_SPACE)
 {
     Light lights[MAX_LIGHTS];
     float3 ambient;
-    uint numLights;
+    uint count;
 };
 
-cbuffer MaterialUniforms : register(b2, space3)
+cbuffer MaterialUniforms : register(MATERIAL_SLOT, FRAGMENT_UNIFORM_SPACE)
 {
     Material material;
 };
@@ -42,8 +45,8 @@ Output main(Input input)
     float3 diffuse = ambient;
     float3 specular = 0;
     
-    float3 V = normalize(cameraPosition - input.worldPosition);
-    for (uint i = 0; i < numLights; i++)
+    float3 V = normalize(frame.cameraPosition - input.worldPosition);
+    for (uint i = 0; i < count; i++)
     {
         calculateLighting(lights[i], material, input.worldPosition, normalize(input.normal), V, diffuse, specular);
     }
