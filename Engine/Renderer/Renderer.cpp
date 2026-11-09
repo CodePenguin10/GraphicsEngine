@@ -204,7 +204,7 @@ namespace nu
         SDL_BindGPUIndexBuffer(m_renderPass, &binding, SDL_GPU_INDEXELEMENTSIZE_32BIT);
     }
 
-    void Renderer::Draw(uint32_t vertexCount)
+    void Renderer::Draw(uint32_t vertexCount) const
     {
         // draw using the currently bound pipeline and vertex buffer with SDL_DrawGPUPrimitives()
         // parameters:
@@ -216,7 +216,7 @@ namespace nu
         SDL_DrawGPUPrimitives(m_renderPass, vertexCount, 1, 0, 0);
     }
 
-    void Renderer::DrawIndex(const IndexBuffer& indexBuffer)
+    void Renderer::DrawIndex(const IndexBuffer& indexBuffer) const
     {
         SDL_DrawGPUIndexedPrimitives(m_renderPass, indexBuffer.GetIndexCount(), 1, 0, 0, 0);
     }

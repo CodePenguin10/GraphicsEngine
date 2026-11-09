@@ -19,6 +19,9 @@ namespace nu
 
 		glm::vec2 GetSize() const { return { m_width, m_height }; }
 
+		SDL_GPUTexture* GetGPUTexture() { return m_gpuTexture; }
+		SDL_GPUSampler* GetGPUSampler() { return m_gpuSampler; }
+
 		friend class Renderer;
 
 	private:

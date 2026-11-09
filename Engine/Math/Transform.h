@@ -22,7 +22,7 @@ namespace nu
         void SetRotation(const glm::quat& qrotation) { rotation = glm::normalize(qrotation); }
 
 
-        glm::mat4 GetMatrix()
+        glm::mat4 GetMatrix() const
         {
             auto mxt = glm::translate(position);
             auto mxr = glm::toMat4(rotation);
