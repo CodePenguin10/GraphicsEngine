@@ -34,7 +34,7 @@ namespace nu
 		SDL_GPUDevice* GetGPUDevice() const { return m_GPUDevice; }
 		SDL_Window* GetWindow() const { return m_window; }
 
-		void SetPipeline(const class Pipeline& pipeline);
+		void SetPipeline(const class Pipeline& pipeline) const;
 		void SetVertexBuffer(const class VertexBuffer& vertexBuffer) const;
 		void SetIndexBuffer(const class IndexBuffer& indexBuffer) const;
 

@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "Renderer.h"
 #include "Resources/ResourceManager.h"
+#include "Texture.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
