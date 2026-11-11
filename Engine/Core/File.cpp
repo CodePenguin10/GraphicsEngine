@@ -112,6 +112,11 @@ namespace nu
 		return directories;
 	}
 
+	std::string GetParentDirectory(const std::string& path)
+	{
+		return std::filesystem::path(path).parent_path().string();
+	}
+
 	std::vector<uint8_t> ReadBinaryFile(const std::string& path)
 	{
 		// open the file in binary mode (no newline conversion) with the read position at the end (ate = "at end")

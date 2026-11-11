@@ -132,7 +132,7 @@ namespace nu
         if (m_renderPass)
         {
             SDL_EndGPURenderPass(m_renderPass);
-            m_renderPass = nullptr;
+            //m_renderPass = nullptr;
         }
 
         if (!SDL_SubmitGPUCommandBuffer(m_commandBuffer))
@@ -141,7 +141,7 @@ namespace nu
             return false;
         }
 
-        m_commandBuffer = nullptr;
+        //m_commandBuffer = nullptr;
 
         return true;
     }
