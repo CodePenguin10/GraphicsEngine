@@ -13,7 +13,7 @@ namespace nu
 		m_audio = std::make_unique<Audio>();
 		m_input = std::make_unique<Input>();
 
-		m_renderer->Initialize("Game Engine", 1280, 1024);
+		m_renderer->Initialize("Game Engine", 1920, 1080);
 		m_particleSystem->Initialize();
 		m_audio->Initialize();
 		m_input->Initialize();
