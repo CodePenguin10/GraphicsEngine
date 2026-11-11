@@ -72,6 +72,49 @@
           "materials": [ "materials/ogre.instance.json" ]
         }
       ]
+    },
+    {
+      "name": "Spot",
+      "type": "Actor",
+      "tag": "Spot",
+      "transform": {
+        "position": [ 2, -1, 0 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/spot.obj",
+          "materials": [ "materials/spot.instance.json" ]
+        }
+      ]
+    },
+    {
+      "name": "Helmet",
+      "type": "Actor",
+      "tag": "Helmet",
+      "transform": {
+        "position": [ 0, 0, 0 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/flight-helmet/FlightHelmet.gltf"
+        }
+      ]
+    },
+    {
+      "name": "Cubone",
+      "type": "Actor",
+      "tag": "Cubone",
+      "transform": {
+        "position": [ 0, 0, 0 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/Cubone.glb"
+        }
+      ]
     }
   ]
 }
