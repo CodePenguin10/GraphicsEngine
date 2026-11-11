@@ -45,6 +45,7 @@ namespace nu
 		void SetFragmentUniform(UniformSlot slot, const void* data, uint32_t size) const;
 
 		void SetFragmentTexture(uint32_t slot, const class Texture& texture);
+		void SetMaterial(const class MaterialInstance& materialInstance) const;
 
 		void CreateDepthBuffer();
 

@@ -5,6 +5,7 @@
 #include "Pipeline.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "MaterialInstance.h"
 
 #include "Math/Transform.h"
 #include "Math/MathUtils.h"
@@ -34,8 +35,8 @@ namespace nu
         }
 
         //create GPU device
-        SDL_SetHint(SDL_HINT_GPU_DRIVER, "vulkan");
         SDL_GPUShaderFormat formats = SDL_GPU_SHADERFORMAT_SPIRV | SDL_GPU_SHADERFORMAT_DXIL;
+        SDL_SetHint(SDL_HINT_GPU_DRIVER, "vulkan");
         m_GPUDevice = SDL_CreateGPUDevice(formats, true, NULL);
 
         if (!m_GPUDevice)
@@ -128,12 +129,19 @@ namespace nu
 
     bool Renderer::EndFrame() const
     {
-        SDL_EndGPURenderPass(m_renderPass);
+        if (m_renderPass)
+        {
+            SDL_EndGPURenderPass(m_renderPass);
+            //m_renderPass = nullptr;
+        }
+
         if (!SDL_SubmitGPUCommandBuffer(m_commandBuffer))
         {
             std::cerr << "Could not submit command buffer: " << SDL_GetError() << std::endl;
             return false;
         }
+
+        //m_commandBuffer = nullptr;
 
         return true;
     }
@@ -240,6 +248,12 @@ namespace nu
         };
 
         SDL_BindGPUFragmentSamplers(m_renderPass, slot, &binding, 1);
+    }
+
+    void Renderer::SetMaterial(const MaterialInstance& materialInstance) const
+    {
+		SetPipeline(materialInstance.GetMaterial().GetPipeline());
+		materialInstance.Bind(m_commandBuffer, m_renderPass);
     }
 
     void Renderer::CreateDepthBuffer()

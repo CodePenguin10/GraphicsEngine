@@ -1,8 +1,9 @@
 #pragma once
 #include "Resources/Resource.h"
-#include "MaterialInstance.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "MaterialInstance.h"
+
 #include <glm/glm.hpp>
 #include <memory>
 #include <string>
@@ -38,7 +39,7 @@ namespace nu
 		bool Load(const std::string& filename, const class Renderer& renderer);
 
 		// binds and draws every mesh, call between BeginFrame and EndFrame with a pipeline set
-		void Draw(const class Renderer& renderer) const;
+		void Draw(const class Renderer& renderer, const std::vector <res_t<MaterialInstance>>& overrides = {}) const;
 
 	private:
 		void ProcessNode(aiNode* node, const aiScene* scene, const class Renderer& renderer);

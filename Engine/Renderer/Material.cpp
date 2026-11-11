@@ -9,7 +9,7 @@
 
 namespace nu
 {
-	bool Material::Load(const std::string& filename, const class Renderer& renderer)
+	bool Material::Load(const std::string& filename, const Renderer& renderer)
 	{
 		json::document_t document;
 		if (!json::Load(filename, document))
@@ -65,7 +65,7 @@ namespace nu
 		m_pipeline.AddVertexAttribute(2, SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3, offsetof(Model::Vertex, normal));
 		m_pipeline.AddVertexAttribute(3, SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3, offsetof(Model::Vertex, tangent));
 
-		if (!m_pipeline.Create(*m_vertexShader, *m_fragmentShader, renderer.m_GPUDevice, renderer.m_window))
+		if (!m_pipeline.Create(*m_vertexShader, *m_fragmentShader, renderer.GetGPUDevice(), renderer.GetWindow()))
 		{
 			std::cerr << "Could not create pipeline for Material: " << filename << std::endl;
 			return false;

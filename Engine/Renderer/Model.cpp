@@ -17,9 +17,12 @@ namespace nu
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(filename,
 			aiProcess_Triangulate |
+			aiProcess_JoinIdenticalVertices |
 			aiProcess_GenSmoothNormals |
 			aiProcess_FlipUVs |
-			aiProcess_CalcTangentSpace);
+			aiProcess_CalcTangentSpace |
+		    aiProcess_RemoveRedundantMaterials |
+			aiProcess_OptimizeMeshes);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
@@ -27,16 +30,25 @@ namespace nu
 
 			return false;
 		}
+		std::string directory = ""; //GetParentDirectory(filename) = "/";
+		LoadMaterials(scene, directory, renderer);
 
 		ProcessNode(scene->mRootNode, scene, renderer);
 
 		return true;
 	}
 
-	void Model::Draw(const Renderer& renderer) const
+	void Model::Draw(const Renderer& renderer, const std::vector<res_t<MaterialInstance>>& overrides) const
 	{
 		for (const auto& mesh : m_meshes)
 		{
+			uint32_t slot = mesh.materialIndex;
+			const MaterialInstance& material = (slot < overrides.size() && overrides[slot]) ?
+				*overrides[slot] :
+				m_materials[slot];
+
+			renderer.SetMaterial(material);
+
 			renderer.SetVertexBuffer(*mesh.vertexBuffer);
 			renderer.SetIndexBuffer(*mesh.indexBuffer);
 			renderer.DrawIndex(*mesh.indexBuffer);
@@ -117,6 +129,8 @@ namespace nu
 
 			return;
 		}
+		
+		// store index into material
 		newMesh.materialIndex = mesh->mMaterialIndex;
 
 		m_meshes.push_back(std::move(newMesh));
@@ -169,17 +183,6 @@ namespace nu
 					}
 				}
 			}
-
-			// print what was loaded for this slot
-			aiString name;
-			source->Get(AI_MATKEY_NAME, name);
-
-			const MaterialData& data = instance.GetData();
-			std::cout << "  [" << i << "] " << name.C_Str()
-				<< " | color: " << data.baseColor.r << ", " << data.baseColor.g << ", " << data.baseColor.b << ", " << data.baseColor.a
-				<< " | shininess: " << data.shininess
-				<< " | texture: " << (path.length > 0 ? path.C_Str() : "none")
-				<< std::endl;
 		}
 	}
 }
