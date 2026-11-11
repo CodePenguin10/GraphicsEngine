@@ -48,8 +48,8 @@ namespace nu
 				frameUniform.projection = cameraComponent->GetProjection();
 				frameUniform.viewProjection = frameUniform.projection * frameUniform.view;
 
-				renderer.SetVertexUniform(UniformSlot::Frame, &frameUniform, sizeof(frameUniform.projection));
-				renderer.SetFragmentUniform(UniformSlot::Frame, &frameUniform, sizeof(frameUniform.projection));
+				renderer.SetVertexUniform(UniformSlot::Frame, &frameUniform, sizeof(frameUniform));
+				renderer.SetFragmentUniform(UniformSlot::Frame, &frameUniform, sizeof(frameUniform));
 			}
 		}
 

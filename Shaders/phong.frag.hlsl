@@ -16,9 +16,7 @@ cbuffer FrameUniforms : register(FRAME_SLOT, FRAGMENT_UNIFORM_SPACE)
 
 cbuffer lightUniforms : register(LIGHT_SLOT, FRAGMENT_UNIFORM_SPACE)
 {
-    Light lights[MAX_LIGHTS];
-    float3 ambient;
-    uint count;
+    Lights lights;
 };
 
 cbuffer MaterialUniforms : register(MATERIAL_SLOT, FRAGMENT_UNIFORM_SPACE)
@@ -42,16 +40,17 @@ Output main(Input input)
 {
     Output output;
     float4 albedo = u_texture.Sample(u_sampler, input.texcoord) * material.color;
-    float3 diffuse = ambient;
+    float3 diffuse = lights.ambient;
     float3 specular = 0;
-    
+
     float3 V = normalize(frame.cameraPosition - input.worldPosition);
-    for (uint i = 0; i < count; i++)
+    for (uint i = 0; i < lights.count; i++)
     {
-        calculateLighting(lights[i], material, input.worldPosition, normalize(input.normal), V, diffuse, specular);
+        calculateLighting(lights.lights[i], material, input.worldPosition, normalize(input.normal), V, diffuse, specular);
     }
-    
-    output.color = float4(1, 1, 1, 1); //float4(albedo.rgb * diffuse + specular, albedo.a);
-    
+
+    output.color = float4(albedo.rgb * diffuse + specular, albedo.a);
+
     return output;
 }
+ 

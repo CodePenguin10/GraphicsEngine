@@ -28,7 +28,7 @@ struct Light
     
     float innerCutoff;
     float outerCutoff;
-    float3 padding;
+    float2 padding;
 };
 
 struct Lights
