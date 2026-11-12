@@ -64,7 +64,7 @@ int main()
         editor.BeginFrame();
         editor.Update();
 
-        // RENDER
+        // RENDER 
         renderer.BeginFrame();
 
         scene.Draw(renderer);
