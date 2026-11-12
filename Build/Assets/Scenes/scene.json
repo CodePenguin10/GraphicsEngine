@@ -7,7 +7,7 @@
       "tag": "Camera",
       "active": true,
       "transform": {
-        "position": [ 0, 0, 5 ],
+        "position": [ 0, 1, 5 ],
         "rotation": [ 0, 0, 0 ],
         "scale": [ 1, 1, 1 ]
       },
@@ -59,16 +59,16 @@
       ]
     },
     {
-      "name": "Ogre",
+      "name": "Plane",
       "type": "Actor",
-      "tag": "Ogre",
+      "tag": "Plane",
       "transform": {
         "position": [ 0, 0, 0 ]
       },
       "components": [
         {
           "type": "ModelComponent",
-          "model": "models/ogre.obj",
+          "model": "models/plane.obj",
           "materials": [ "materials/ogre.instance.json" ]
         }
       ]
@@ -78,7 +78,7 @@
       "type": "Actor",
       "tag": "Spot",
       "transform": {
-        "position": [ 2, -1, 0 ]
+        "position": [ 0, -2, 0 ]
       },
       "components": [
         {
@@ -93,7 +93,7 @@
       "type": "Actor",
       "tag": "Helmet",
       "transform": {
-        "position": [ 0, 0, 0 ]
+        "position": [ 0, -2, 0 ]
       },
       "components": [
         {
@@ -103,16 +103,18 @@
       ]
     },
     {
-      "name": "Cubone",
+      "name": "Table",
       "type": "Actor",
-      "tag": "Cubone",
+      "tag": "Table",
       "transform": {
-        "position": [ 0, 0, 0 ]
+        "position": [ 2, 0.35, 0 ],
+        "rotation": [ -90, 0, 0],
+        "scale": [ 100, 100, 100 ]
       },
       "components": [
         {
           "type": "ModelComponent",
-          "model": "models/Cubone.glb"
+          "model": "models/Interior-Props/Wood Kitchen Table.glb"
         }
       ]
     }
