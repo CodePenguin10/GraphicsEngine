@@ -30,6 +30,7 @@ int main()
     scene.Load("scenes/scene.json");
 
     auto& renderer = Engine::Instance().GetRenderer();
+    auto& editor = Engine::Instance().GetEditor();
 
     // MAIN LOOP
     bool quit = false;
@@ -39,6 +40,8 @@ int main()
         SDL_Event event;
         while (SDL_PollEvent(&event)) 
         {
+            editor.ProcessEvent(event);
+
             if (event.type == SDL_EVENT_QUIT) 
             {
                 quit = true;
@@ -57,10 +60,18 @@ int main()
         // SCENE
         scene.Update(dt);
 
+        // EDITOR
+        editor.BeginFrame();
+        editor.Update();
+
         // RENDER
         renderer.BeginFrame();
 
         scene.Draw(renderer);
+
+        renderer.EndRenderPass();
+        editor.Draw(renderer);
+
 
         renderer.EndFrame();
     }
