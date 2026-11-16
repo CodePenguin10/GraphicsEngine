@@ -20,24 +20,8 @@
         },
         {
           "type": "CameraControllerComponent",
-          "speed": 3,
+          "speed": 5,
           "sensitivity": 0.4
-        }
-      ]
-    },
-    {
-      "name": "Light1",
-      "type": "Actor",
-      "tag": "Light",
-      "transform": {
-        "rotation": [ -60, 30, 0 ]
-      },
-      "components": [
-        {
-          "type": "LightComponent",
-          "light_type": "directional",
-          "color": [ 0.5, 0.5, 0.5 ],
-          "intensity": 1.0
         }
       ]
     },
@@ -46,24 +30,93 @@
       "type": "Actor",
       "tag": "Light",
       "transform": {
-        "position": [ 5, 5, 0 ]
+        "position": [ 0, 4, 2 ]
       },
       "components": [
         {
           "type": "LightComponent",
           "light_type": "point",
           "color": [ 1, 1, 1 ],
-          "intensity": 1.0,
+          "intensity": 0.6,
           "range": 40.0
         }
       ]
     },
     {
-      "name": "Plane",
+      "name": "Floor",
       "type": "Actor",
-      "tag": "Plane",
+      "tag": "Floor",
       "transform": {
-        "position": [ 0, 0, 0 ]
+        "position": [ 0, 0, 0 ],
+        "scale": [ 1, 1, 1 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/plane.obj",
+          "materials": [ "materials/ogre.instance.json" ]
+        }
+      ]
+    },
+    {
+      "name": "Wall1",
+      "type": "Actor",
+      "tag": "Wall1",
+      "transform": {
+        "position": [ 5, 2, 0 ],
+        "scale": [ 1, 1, 1 ],
+        "rotation": [ 0, 0, 90 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/plane.obj",
+          "materials": [ "materials/ogre.instance.json" ]
+        }
+      ]
+    },
+    {
+      "name": "Wall2",
+      "type": "Actor",
+      "tag": "Wall2",
+      "transform": {
+        "position": [ -5, 2, 0 ],
+        "scale": [ 1, 1, 1 ],
+        "rotation": [ 0, 0, -90 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/plane.obj",
+          "materials": [ "materials/ogre.instance.json" ]
+        }
+      ]
+    },
+    {
+      "name": "Wall3",
+      "type": "Actor",
+      "tag": "Wall3",
+      "transform": {
+        "position": [ 0, 2, -3 ],
+        "scale": [ 1, 1, 1 ],
+        "rotation": [ 90, 0, -90 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/plane.obj",
+          "materials": [ "materials/ogre.instance.json" ]
+        }
+      ]
+    },
+    {
+      "name": "Ceiling",
+      "type": "Actor",
+      "tag": "Ceiling",
+      "transform": {
+        "position": [ 0, 5, 0 ],
+        "scale": [ 1, 1, 1 ],
+        "rotation": [ 0, 0, 180 ]
       },
       "components": [
         {
@@ -107,14 +160,142 @@
       "type": "Actor",
       "tag": "Table",
       "transform": {
-        "position": [ 2, 0.35, 0 ],
-        "rotation": [ -90, 0, 0],
+        "position": [ 0, 0, 3 ],
+        "rotation": [ -90, 0, 0 ],
         "scale": [ 100, 100, 100 ]
       },
       "components": [
         {
           "type": "ModelComponent",
-          "model": "models/Interior-Props/Wood Kitchen Table.glb"
+          "model": "models/House/Table Round Large.glb"
+        }
+      ]
+    },
+    {
+      "name": "Fridge",
+      "type": "Actor",
+      "tag": "Fridge",
+      "transform": {
+        "position": [ -4, 0, -2.5 ],
+        "rotation": [ -90, 0, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Kitchen Fridge.glb"
+        }
+      ]
+    },
+    {
+      "name": "Door",
+      "type": "Actor",
+      "tag": "Door",
+      "transform": {
+        "position": [ 5, 0, 3 ],
+        "rotation": [ -90, 90, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Door.glb"
+        }
+      ]
+    },
+    {
+      "name": "Sink",
+      "type": "Actor",
+      "tag": "Sink",
+      "transform": {
+        "position": [ 4.5, 0, -2.5 ],
+        "rotation": [ -90, -90, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Kitchen Sink.glb"
+        }
+      ]
+    },
+    {
+      "name": "Drawer",
+      "type": "Actor",
+      "tag": "Drawer",
+      "transform": {
+        "position": [ 4.5, 0, 0.25 ],
+        "rotation": [ -90, -90, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Drawer-T4uDbyP90C.glb"
+        }
+      ]
+    },
+    {
+      "name": "Oven",
+      "type": "Actor",
+      "tag": "Oven",
+      "transform": {
+        "position": [ 0, 0, -2.5 ],
+        "rotation": [ -90, 0, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Oven.glb"
+        }
+      ]
+    },
+    {
+      "name": "Chair1",
+      "type": "Actor",
+      "tag": "Chair1",
+      "transform": {
+        "position": [ 0, 0, 2 ],
+        "rotation": [ -90, 0, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Chair.glb"
+        }
+      ]
+    },
+    {
+      "name": "Chair2",
+      "type": "Actor",
+      "tag": "Chair2",
+      "transform": {
+        "position": [ 0, 0, 4 ],
+        "rotation": [ -90, 180, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Chair.glb"
+        }
+      ]
+    },
+    {
+      "name": "Ceiling Light",
+      "type": "Actor",
+      "tag": "Ceiling Light",
+      "transform": {
+        "position": [ 0, 5, 2 ],
+        "rotation": [ -90, 0, 0 ],
+        "scale": [ 100, 100, 100 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/House/Ceiling Light.glb"
         }
       ]
     }
