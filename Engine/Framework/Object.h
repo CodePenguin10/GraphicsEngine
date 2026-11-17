@@ -7,7 +7,7 @@
 
 namespace nu
 {
-	class Object
+	class Object //: public IGui
 	{
 	public:
 		Object() = default;
@@ -23,6 +23,11 @@ namespace nu
 		{
 			JSON_READ_NAME(value, "name", m_name);
 			JSON_READ_NAME(value, "active", m_active);
+		}
+
+		void UpdateGUI() //override;
+		{
+			//ImGui::Text("=", m_name.c_str());
 		}
 
 	protected:

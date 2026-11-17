@@ -142,6 +142,21 @@
       ]
     },
     {
+      "name": "Sphere",
+      "type": "Actor",
+      "tag": "Sphere",
+      "transform": {
+        "position": [ 0, -2, 3 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/Plane.obj",
+          "materials": [ "materials/ground.instance.json" ]
+        }
+      ]
+    },
+    {
       "name": "Helmet",
       "type": "Actor",
       "tag": "Helmet",

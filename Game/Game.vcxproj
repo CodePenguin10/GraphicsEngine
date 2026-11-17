@@ -175,6 +175,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Build\Assets\Materials\ground.instance.json" />
+    <None Include="..\Build\Assets\Materials\multi.material.json" />
     <None Include="..\Build\Assets\Materials\ogre.instance.json" />
     <None Include="..\Build\Assets\Materials\phong.material.json" />
     <None Include="..\Build\Assets\Materials\spot.instance.json" />
