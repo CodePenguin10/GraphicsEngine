@@ -30,7 +30,9 @@ namespace nu
 		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_Q)) direction -= m_owner->GetTransform().Up();
 		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_W)) direction += m_owner->GetTransform().Forward();
 		if (Engine::Instance().GetInput().GetKeyDown(SDL_SCANCODE_S)) direction -= m_owner->GetTransform().Forward();	
-		if (glm::length2(direction) > 0.0f) {
+
+		if (glm::length2(direction) > 0.0f)
+		{
 			direction = glm::normalize(direction);
 		}
 		m_owner->SetPosition(m_owner->GetTransform().position + direction * (m_speed * dt));
@@ -46,7 +48,7 @@ namespace nu
 
 	void CameraControllerComponent::UpdateGui()
 	{
-		ImGui::SliderFloat("Speed", &m_speed, 0.1f, 0.1f);
-		ImGui::SliderFloat("Sensitivity", &m_speed, 0.1f, 0.1f);
+		ImGui::SliderFloat("Speed", &m_speed, 0.1f, 10.0f);
+		ImGui::SliderFloat("Sensitivity", &m_speed, 0.1f, 10.0f);
 	}
 }

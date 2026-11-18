@@ -17,7 +17,7 @@ namespace nu
 
 		void Read(const json::value_t& value) override;
 
-		void UpdateGui(); //override
+		void UpdateGui() override;
 
 	private:
 		LightType m_type = LightType::Point;

@@ -50,12 +50,12 @@ namespace nu
 	void LightComponent::UpdateGui()
 	{
 		const char* types[] = {"Directional", "Point", "Spot"};
-		//ImGui::Combo("Type", (int*)(&m_type), types, 3);
-		//ImGui::ColorEdit3("Color", glm::value_ptr(m_color));
-		//ImGui::SliderFloat("Intensity", &m_intensity, 0.0f, 10.0f);
+		ImGui::Combo("Type", (int*)(&m_type), types, 3);
+		ImGui::ColorEdit3("Color", glm::value_ptr(m_color));
+		ImGui::SliderFloat("Intensity", &m_intensity, 0.0f, 10.0f);
 		if (m_type != LightType::Directional)
 		{
-		//ImGui::SliderFloat("Range", &m_intensity, 0.0f, 10.0f);
+		ImGui::SliderFloat("Range", &m_intensity, 0.0f, 10.0f);
 		}
 	}
 

@@ -46,9 +46,9 @@ Output main(Input input)
 {
     Output output;
     
-    float t = base3_texture.Sample(base1_sampler, input.texcoord).r;
+    float t = base3_texture.Sample(base3_sampler, input.texcoord).r;
     float4 albedo1 = base1_texture.Sample(base1_sampler, input.texcoord) * material.color;
-    float4 albedo2 = base2_texture.Sample(base1_sampler, input.texcoord) * material.color;
+    float4 albedo2 = base2_texture.Sample(base2_sampler, input.texcoord) * material.color;
     float4 albedo = lerp(albedo1, albedo2, 0.5);
     
     float3 diffuse = lights.ambient;
