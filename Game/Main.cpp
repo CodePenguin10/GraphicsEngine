@@ -62,7 +62,7 @@ int main()
 
         // EDITOR
         editor.BeginFrame();
-        editor.Update();
+        editor.Update(scene);
 
         // RENDER 
         renderer.BeginFrame();
