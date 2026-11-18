@@ -45,7 +45,7 @@ Output main(Input input)
     Output output;
     
     float specularMask = specular_texture.Sample(specular_sampler, input.texcoord).r;
-    float3 emissive = emissive_texture.Sample(emissive_sampler, input.texcoord).rgb;
+    float3 emissive = emissive_texture.Sample(emissive_sampler, input.texcoord).rgb * material.emissiveColor;
     
     float4 albedo = base_texture.Sample(base_sampler, input.texcoord) * material.baseColor;
     float3 diffuse = lights.ambient;
