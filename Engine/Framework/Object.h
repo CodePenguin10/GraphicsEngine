@@ -18,7 +18,9 @@ namespace nu
 
 		CLASS_PROTOTYPE(Object)
 
+		void SetName(std::string& name) { m_name = name; }
 		const std::string& GetName() const { return m_name; }
+
 		bool IsActive() const { return m_active; }
 		void SetActive(bool active = true) { m_active = active; }
 

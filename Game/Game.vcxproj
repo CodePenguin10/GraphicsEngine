@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Build\Assets\Materials\ground.instance.json" />
+    <None Include="..\Build\Assets\Materials\lava.instance.json" />
     <None Include="..\Build\Assets\Materials\multi.material.json" />
     <None Include="..\Build\Assets\Materials\ogre.instance.json" />
     <None Include="..\Build\Assets\Materials\phong.material.json" />

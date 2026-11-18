@@ -157,6 +157,21 @@
       ]
     },
     {
+      "name": "Cube",
+      "type": "Actor",
+      "tag": "Cube",
+      "transform": {
+        "position": [ 0, 0, 0 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/cube.obj",
+          "materials": [ "materials/lava.instance.json" ]
+        }
+      ]
+    },
+    {
       "name": "Helmet",
       "type": "Actor",
       "tag": "Helmet",
