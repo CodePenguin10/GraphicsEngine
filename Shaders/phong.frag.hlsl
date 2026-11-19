@@ -7,6 +7,8 @@ Texture2D<float4> specular_texture : register(t1, FRAGMENT_TEXTURE_SPACE);
 SamplerState specular_sampler : register(s1, FRAGMENT_TEXTURE_SPACE);
 Texture2D<float4> emissive_texture : register(t2, FRAGMENT_TEXTURE_SPACE);
 SamplerState emissive_sampler : register(s2, FRAGMENT_TEXTURE_SPACE);
+Texture2D<float4> normal_texture : register(t3, FRAGMENT_TEXTURE_SPACE);
+SamplerState normal_sampler : register(s3, FRAGMENT_TEXTURE_SPACE);
 
 cbuffer ObjectUniforms : register(OBJECT_SLOT, FRAGMENT_UNIFORM_SPACE)
 {
