@@ -7,8 +7,6 @@ Texture2D<float4> specular_texture : register(t1, FRAGMENT_TEXTURE_SPACE);
 SamplerState specular_sampler : register(s1, FRAGMENT_TEXTURE_SPACE);
 Texture2D<float4> emissive_texture : register(t2, FRAGMENT_TEXTURE_SPACE);
 SamplerState emissive_sampler : register(s2, FRAGMENT_TEXTURE_SPACE);
-Texture2D<float4> normal_texture : register(t3, FRAGMENT_TEXTURE_SPACE);
-SamplerState normal_sampler : register(s3, FRAGMENT_TEXTURE_SPACE);
 
 cbuffer ObjectUniforms : register(OBJECT_SLOT, FRAGMENT_UNIFORM_SPACE)
 {
@@ -47,6 +45,7 @@ Output main(Input input)
     Output output;
     
     float specularMask = specular_texture.Sample(specular_sampler, input.texcoord).r;
+    //float3 emissive = material.emissiveColor;
     float3 emissive = emissive_texture.Sample(emissive_sampler, input.texcoord).rgb * material.emissiveColor;
     
     float4 albedo = base_texture.Sample(base_sampler, input.texcoord) * material.baseColor;
