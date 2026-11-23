@@ -56,6 +56,7 @@ Output main(Input input)
     float3 specular = 0;
     
     float3 normal = normal_texture.Sample(normal_sampler, input.texcoord) * material.baseColor;
+    //normal.xy *= normalStrength;
 
     float3 nNormal = normalize(input.normal);
     float3 T = normalize(input.tangent);

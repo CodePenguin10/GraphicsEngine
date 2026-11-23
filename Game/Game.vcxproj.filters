@@ -16,7 +16,7 @@
     <None Include="..\Build\Assets\Scenes\scene.json">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\Build\Assets\Materials\ogre.instance.json">
+    <None Include="..\Build\Assets\Materials\wall.instance.json">
       <Filter>Assets\Materials</Filter>
     </None>
     <None Include="..\Build\Assets\Materials\phong.material.json">
@@ -36,6 +36,12 @@
     </None>
     <None Include="..\Build\Assets\Textures\Skybox\skybox_cubemap.json">
       <Filter>Assets</Filter>
+    </None>
+    <None Include="..\Build\Assets\Materials\phong-normal.material .json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\Materials\ogre.instance.json">
+      <Filter>Assets\Materials</Filter>
     </None>
   </ItemGroup>
 </Project>

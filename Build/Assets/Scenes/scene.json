@@ -54,7 +54,7 @@
         {
           "type": "ModelComponent",
           "model": "models/plane.obj",
-          "materials": [ "materials/ogre.instance.json" ]
+          "materials": [ "materials/wall.instance.json" ]
         }
       ]
     },
@@ -71,7 +71,7 @@
         {
           "type": "ModelComponent",
           "model": "models/plane.obj",
-          "materials": [ "materials/ogre.instance.json" ]
+          "materials": [ "materials/wall.instance.json" ]
         }
       ]
     },
@@ -88,7 +88,7 @@
         {
           "type": "ModelComponent",
           "model": "models/plane.obj",
-          "materials": [ "materials/ogre.instance.json" ]
+          "materials": [ "materials/wall.instance.json" ]
         }
       ]
     },
@@ -105,7 +105,7 @@
         {
           "type": "ModelComponent",
           "model": "models/plane.obj",
-          "materials": [ "materials/ogre.instance.json" ]
+          "materials": [ "materials/wall.instance.json" ]
         }
       ]
     },
@@ -122,7 +122,7 @@
         {
           "type": "ModelComponent",
           "model": "models/plane.obj",
-          "materials": [ "materials/ogre.instance.json" ]
+          "materials": [ "materials/wall.instance.json" ]
         }
       ]
     },
@@ -130,6 +130,21 @@
       "name": "Spot",
       "type": "Actor",
       "tag": "Spot",
+      "transform": {
+        "position": [ 0, -2, 0 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/spot.obj",
+          "materials": [ "materials/spot.instance.json" ]
+        }
+      ]
+    },
+    {
+      "name": "Ogre",
+      "type": "Actor",
+      "tag": "Ogre",
       "transform": {
         "position": [ 0, -2, 0 ]
       },
