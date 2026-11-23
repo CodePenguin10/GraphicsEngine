@@ -34,7 +34,7 @@
     <FxCompile Include="multi.frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="phong_normal.fong.hlsl">
+    <FxCompile Include="phong_normal.frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

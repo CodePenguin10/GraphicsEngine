@@ -182,6 +182,7 @@
     <None Include="..\Build\Assets\Materials\phong.material.json" />
     <None Include="..\Build\Assets\Materials\spot.instance.json" />
     <None Include="..\Build\Assets\Scenes\scene.json" />
+    <None Include="..\Build\Assets\Textures\Skybox\skybox_cubemap.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

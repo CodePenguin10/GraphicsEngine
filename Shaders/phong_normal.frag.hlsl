@@ -7,6 +7,9 @@ Texture2D<float4> specular_texture : register(t1, FRAGMENT_TEXTURE_SPACE);
 SamplerState specular_sampler : register(s1, FRAGMENT_TEXTURE_SPACE);
 Texture2D<float4> emissive_texture : register(t2, FRAGMENT_TEXTURE_SPACE);
 SamplerState emissive_sampler : register(s2, FRAGMENT_TEXTURE_SPACE);
+Texture2D<float4> normal_texture : register(t3, FRAGMENT_TEXTURE_SPACE);
+SamplerState normal_sampler : register(s3, FRAGMENT_TEXTURE_SPACE);
+
 
 cbuffer ObjectUniforms : register(OBJECT_SLOT, FRAGMENT_UNIFORM_SPACE)
 {
@@ -33,6 +36,7 @@ struct Input
     float2 texcoord : TEXCOORD0;
     float3 worldPosition : TEXCOORD1;
     float3 normal : TEXCOORD2;
+    float3 tangent : TEXCOORD3;
 };
 
 struct Output
@@ -50,7 +54,15 @@ Output main(Input input)
     float4 albedo = base_texture.Sample(base_sampler, input.texcoord) * material.baseColor;
     float3 diffuse = lights.ambient;
     float3 specular = 0;
+    
+    float3 normal = normal_texture.Sample(normal_sampler, input.texcoord) * material.baseColor;
 
+    float3 nNormal = normalize(input.normal);
+    float3 T = normalize(input.tangent);
+    float3 B = cross(nNormal, T);
+    float3x3 TBN = float3x3(T, B, nNormal);
+    float3 N = normalize(mul(normal, TBN));
+    
     float3 V = normalize(frame.cameraPosition - input.worldPosition);
     for (uint i = 0; i < lights.count; i++)
     {
