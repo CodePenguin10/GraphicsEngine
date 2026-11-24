@@ -34,9 +34,6 @@
     <None Include="..\Build\Assets\Materials\lava.instance.json">
       <Filter>Assets\Materials</Filter>
     </None>
-    <None Include="..\Build\Assets\Textures\Skybox\skybox_cubemap.json">
-      <Filter>Assets</Filter>
-    </None>
     <None Include="..\Build\Assets\Materials\phong-normal.material .json">
       <Filter>Assets\Materials</Filter>
     </None>
@@ -48,6 +45,18 @@
     </None>
     <None Include="..\Build\Assets\Materials\phong-default.material.json">
       <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\Materials\skybox.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\Materials\skybox.material.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\Textures\Skybox\cubemap.json">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\Build\Assets\Scenes\scene-skybox.json">
+      <Filter>Assets</Filter>
     </None>
   </ItemGroup>
 </Project>
