@@ -45,7 +45,6 @@ Output main(Input input)
     Output output;
     
     float specularMask = specular_texture.Sample(specular_sampler, input.texcoord).r;
-    //float3 emissive = material.emissiveColor;
     float3 emissive = emissive_texture.Sample(emissive_sampler, input.texcoord).rgb * material.emissiveColor;
     
     float4 albedo = base_texture.Sample(base_sampler, input.texcoord) * material.baseColor;
@@ -58,7 +57,7 @@ Output main(Input input)
         calculateLighting(lights.lights[i], material, input.worldPosition, normalize(input.normal), V, diffuse, specular);
     }
 
-    output.color = float4(albedo.rgb * diffuse + specular * material.specularColor + emissive, albedo.a);
+    output.color = float4(albedo.rgb * diffuse + specular * material.specularColor * specularMask + emissive, albedo.a);
 
     return output;
 }
