@@ -1,7 +1,8 @@
 {
 	"type": "material_instance",
-	"material": "materials/phong-normal.material.json",
+	"material": "materials/skybox.material.json",
 	"tiling": [ 1, 1 ],
 	"textures": {
-		"cube_map":  "textures/skybox/cubemap.json"
+		"cube_map": "textures/skybox/cubemap.json"
 	}
+}

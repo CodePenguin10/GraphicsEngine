@@ -12,7 +12,7 @@ int main()
     Engine::Instance().Initialize();
 
     Scene scene;
-    scene.Load("scenes/scene-helmet.json");
+    scene.Load("scenes/scene-skybox.json");
 
     auto& renderer = Engine::Instance().GetRenderer();
     auto& editor = Engine::Instance().GetEditor();
